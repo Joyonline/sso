@@ -1,13 +1,11 @@
 package com.me.sso.controller;
 
 
-import com.me.sso.common.MeResult;
+import com.me.sso.common.controller.MeResult;
 import com.me.sso.entity.SsoUser;
 import com.me.sso.service.SsoUserService;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -47,5 +45,15 @@ public class SsoUserController {
         } else {
             return MeResult.oK(token);
         }
+    }
+
+    /**
+     * 查询token信息
+     * @param token
+     * @return
+     */
+    @GetMapping("/query/{token}")
+    public MeResult queryByToken(@PathVariable String token){
+        return MeResult.oK(ssoUserService.queryByToken(token));
     }
 }

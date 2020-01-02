@@ -1,5 +1,6 @@
 package com.me.sso.mapper;
 
+import com.me.sso.common.mapper.MeMapper;
 import com.me.sso.entity.SsoUser;
 import org.apache.ibatis.annotations.Mapper;
 

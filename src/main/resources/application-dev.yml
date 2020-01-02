@@ -5,7 +5,17 @@ spring:
     url: jdbc:mysql://192.168.241.129:3306/ctb?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true
     username: root
     password: 123456
+  redis:
+    cluster:
+      nodes[0]: 192.168.241.129:6380
+      nodes[1]: 192.168.241.129:6381
+      nodes[2]: 192.168.241.129:6382
+      nodes[3]: 192.168.241.129:6383
+      nodes[4]: 192.168.241.129:6384
+      nodes[5]: 192.168.241.129:6385
 logging:
   file: me.log
   level:
     cn.*: debug
+
+

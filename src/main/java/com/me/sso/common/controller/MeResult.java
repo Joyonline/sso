@@ -1,4 +1,4 @@
-package com.me.sso.common;
+package com.me.sso.common.controller;
 /**
  * @Author: Zhouyu
  * @Description:
@@ -7,6 +7,7 @@ package com.me.sso.common;
  * @Version
  */
 
+import com.me.sso.common.util.JacksonUtils;
 import lombok.Data;
 
 /**
