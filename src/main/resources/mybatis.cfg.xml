@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 开启驼峰自动映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--属性为空仍显示-->
+        <setting name="callSettersOnNulls" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
+</configuration>
