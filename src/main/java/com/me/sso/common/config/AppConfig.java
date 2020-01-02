@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 public class AppConfig {
@@ -16,7 +17,20 @@ public class AppConfig {
     ClusterConfigurationProperties clusterProperties;
 
     @Bean
-    public RedisConnectionFactory connectionFactory(){
-        return new JedisConnectionFactory(new RedisClusterConfiguration(clusterProperties.getNodes()));
+    public RedisConnectionFactory connectionFactory() {
+        return new JedisConnectionFactory(new RedisClusterConfiguration(clusterProperties.getNodes()),
+                jedisPoolConfig());
+    }
+
+    /**
+     * 连接池配置信息
+     */
+    @Bean
+    public JedisPoolConfig jedisPoolConfig() {
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxTotal(100);
+        jedisPoolConfig.setMinIdle(20);
+        jedisPoolConfig.setMaxWaitMillis(10000);
+        return jedisPoolConfig;
     }
 }
