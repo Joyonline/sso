@@ -6,13 +6,21 @@ spring:
     username: root
     password: 123456
   redis:
-    cluster:
+    cluster: #集群redis
       nodes[0]: 192.168.241.129:6380
       nodes[1]: 192.168.241.129:6381
       nodes[2]: 192.168.241.129:6382
       nodes[3]: 192.168.241.129:6383
       nodes[4]: 192.168.241.129:6384
       nodes[5]: 192.168.241.129:6385
+      jedisPoolConfig:
+        maxTotal: 100
+        maxIdle: 20
+        maxWaitMillis: 1000
+    single: #单个redis
+      jedis:
+        host: 192.168.241.129
+        port: 6380
 logging:
   file: me.log
   level:

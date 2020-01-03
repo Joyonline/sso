@@ -1,4 +1,4 @@
-package com.me.sso.common.service;
+package com.me.top.service;
 
 /**
  * redis

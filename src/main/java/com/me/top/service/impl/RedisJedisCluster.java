@@ -1,6 +1,6 @@
-package com.me.sso.common.service.impl;
+package com.me.top.service.impl;
 
-import com.me.sso.common.service.RedisService;
+import com.me.top.service.RedisService;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.types.Expiration;
@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 
 /**
- * jedis操作redis-cluster
+ * jedis操作redis-redis
  */
 @Service
 public class RedisJedisCluster implements RedisService {
@@ -20,6 +20,7 @@ public class RedisJedisCluster implements RedisService {
 
     @Override
     public Boolean save(String key, String value,Integer expire) {
+        redisConnectionFactory.getClusterConnection().close();
         return redisConnectionFactory.getClusterConnection().set(key.getBytes(), value.getBytes(),
                 Expiration.seconds(expire), RedisStringCommands.SetOption.UPSERT);
     }
@@ -31,6 +32,10 @@ public class RedisJedisCluster implements RedisService {
 
     @Override
     public String query(String key){
-        return new String(redisConnectionFactory.getClusterConnection().get(key.getBytes()));
+        byte[] bytes = redisConnectionFactory.getClusterConnection().get(key.getBytes());
+        if (bytes == null || bytes.length == 0) {
+            return null;
+        }
+        return new String(bytes);
     }
 }

@@ -1,13 +1,16 @@
 package com.me.sso.controller;
 
 
-import com.me.sso.common.controller.MeResult;
+import com.me.top.controller.MeController;
+import com.me.top.controller.MeResult;
 import com.me.sso.entity.SsoUser;
 import com.me.sso.service.SsoUserService;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 1、密码使用明文存储
@@ -15,7 +18,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/user")
-public class SsoUserController {
+public class SsoUserController extends MeController {
 
     @Resource
     private SsoUserService ssoUserService;
@@ -27,7 +30,8 @@ public class SsoUserController {
      * @return
      */
     @PostMapping("/register")
-    public MeResult register(SsoUser user) {
+    public MeResult register(@Valid SsoUser user, BindingResult result) {
+        super.hasErrors(result);
         String username = ssoUserService.register(user);
         return MeResult.oK(username);
     }
@@ -39,6 +43,7 @@ public class SsoUserController {
      */
     @PostMapping("/login")
     public MeResult login(String u, String p) {
+        paramNullCheck(u,p);
         String token = ssoUserService.login(u, p);
         if (StringUtils.isEmpty(token)) {
             return MeResult.build(MeResult.ERROR, "用户登录失败");

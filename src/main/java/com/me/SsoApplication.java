@@ -1,4 +1,4 @@
-package com.me.sso;
+package com.me;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

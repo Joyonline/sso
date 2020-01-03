@@ -9,6 +9,7 @@
         <!--属性为空仍显示-->
         <setting name="callSettersOnNulls" value="true"/>
         <setting name="useGeneratedKeys" value="false"/>
+        <!--针对oracle-->
         <setting name="jdbcTypeForNull" value="NULL" />
     </settings>
 </configuration>

@@ -1,6 +1,6 @@
-package com.me.sso.common.service;
+package com.me.top.service;
 
-import com.me.sso.common.mapper.MeMapper;
+import com.me.top.mapper.MeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

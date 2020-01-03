@@ -1,10 +1,9 @@
 package com.me.sso.service;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.me.sso.common.service.MeService;
-import com.me.sso.common.service.RedisService;
-import com.me.sso.common.util.JacksonUtils;
+import com.me.top.service.MeService;
+import com.me.top.service.RedisService;
+import com.me.top.util.JacksonUtils;
 import com.me.sso.entity.SsoUser;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -51,13 +50,19 @@ public class SsoUserService extends MeService<SsoUser> {
         if (!StringUtils.isEmpty(ssoUser)) {
             String _pwd = ssoUser.getPwd();
             if (_pwd.equals(pwd)) {
-                try{
+                try {
                     String token = "sso_token_" + userName + "_" + System.currentTimeMillis();
                     token = DigestUtils.sha256Hex(token);
                     ssoUser.setPwd(null);
+                    String _token = redisService.query(userName);
+                    if (!StringUtils.isEmpty(_token)) {//redis中当前用户只能存储一个
+                        redisService.del(_token);
+                        redisService.del(userName);
+                    }
                     redisService.save(token, JacksonUtils.objToString(ssoUser), 60 * 60 * 24);
+                    redisService.save(userName, token, 60 * 60 * 24);
                     return token;
-                }catch (Exception e){
+                } catch (Exception e) {
                     logger.info(e.getMessage());
                 }
             }

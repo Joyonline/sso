@@ -1,4 +1,4 @@
-package com.me.sso.common.mapper;
+package com.me.top.mapper;
 
 import tk.mybatis.mapper.common.Mapper;
 
