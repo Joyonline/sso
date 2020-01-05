@@ -38,4 +38,14 @@ public class RedisJedisCluster implements RedisService {
         }
         return new String(bytes);
     }
+
+    @Override
+    public Long incrBy(String key, Long value) {
+        return redisConnectionFactory.getClusterConnection().incrBy(key.getBytes(), value);
+    }
+
+    @Override
+    public Long incr(String key) {
+        return redisConnectionFactory.getClusterConnection().incr(key.getBytes());
+    }
 }

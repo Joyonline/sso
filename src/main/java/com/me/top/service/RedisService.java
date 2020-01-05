@@ -10,4 +10,8 @@ public interface RedisService {
     Long del(String key);
 
     String query(String key);
+
+    Long incrBy(String key,Long value);
+
+    Long incr(String key);
 }

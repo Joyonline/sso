@@ -39,4 +39,24 @@ public class RedisJedisSingle implements RedisService {
     public String query(String key) {
         return null;
     }
+
+    @Override
+    public Long incrBy(String key, Long value) {
+        return null;
+    }
+
+    @Override
+    public Long incr(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis.incr(key);
+        } catch (Exception e) {
+            return Long.parseLong(key);
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
 }
